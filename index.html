@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday un.hinged_0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Quicksand:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdf6ec;
+    --card: #fffdf9;
+    --text: #3a332c;
+    --sub: #8f8577;
+    --c1: #f4a3a3;
+    --c2: #ffcf7a;
+    --c3: #9ed8c7;
+    --c4: #a9c6f0;
+    --c5: #f0b7dd;
+    --t1: #e0555f;
+    --t2: #cf8a12;
+    --t3: #1f9280;
+    --t4: #3868c2;
+    --t5: #c34aa1;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1712;
+      --card: #241d17;
+      --text: #f2ece3;
+      --sub: #b8aca0;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1712;
+    --card: #241d17;
+    --text: #f2ece3;
+    --sub: #b8aca0;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); height: 100%; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Quicksand', system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.45;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(20px,-25px) scale(1.08); }
+  }
+
+  .confetti-piece {
+    position: fixed;
+    top: -40px;
+    font-size: 1.4rem;
+    animation: fall linear infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0.85; }
+  }
+  @keyframes pop { 0%,100% { transform: scale(1) rotate(-3deg); } 50% { transform: scale(1.1) rotate(3deg); } }
+
+  .card {
+    background: var(--card);
+    border-radius: 26px 14px 26px 14px;
+    max-width: 560px;
+    width: 100%;
+    padding: 2.6rem 1.9rem 2.2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 18px 40px rgba(90,60,30,0.12);
+  }
+
+  .stamp {
+    position: absolute;
+    font-size: 1.6rem;
+    background: var(--card);
+    border-radius: 8px;
+    padding: 0.3rem 0.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  }
+
+  .handle {
+    display: inline-block;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--text);
+    border-bottom: 2px dotted var(--c1);
+    padding-bottom: 0.1rem;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 0 0 0.2rem;
+    color: var(--sub);
+  }
+  .username {
+    display: block;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 11vw, 4rem);
+    line-height: 1;
+    margin-top: 0.2rem;
+  }
+  .username span:nth-child(5n+1) { color: var(--t1); }
+  .username span:nth-child(5n+2) { color: var(--t2); }
+  .username span:nth-child(5n+3) { color: var(--t3); }
+  .username span:nth-child(5n+4) { color: var(--t4); }
+  .username span:nth-child(5n+5) { color: var(--t5); }
+
+  .subtitle {
+    color: var(--sub);
+    font-size: 1.02rem;
+    margin: 1rem 0 1.6rem;
+  }
+  .cake {
+    font-size: 3.2rem;
+    margin: 0.4rem 0 1.1rem;
+    display: inline-block;
+    animation: pop 2.6s ease-in-out infinite;
+  }
+  .message {
+    font-size: 1.03rem;
+    line-height: 1.75;
+    margin: 1.4rem 0.2rem;
+    color: var(--text);
+  }
+  .message strong {
+    color: var(--t1);
+    font-weight: 700;
+  }
+  .wishes-title {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin: 1.8rem 0 0.9rem;
+    color: var(--text);
+  }
+  .wishes {
+    display: grid;
+    gap: 0.8rem;
+    text-align: left;
+  }
+  .wish {
+    background: var(--bg);
+    border-radius: 14px 4px 14px 4px;
+    padding: 0.85rem 1.05rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    position: relative;
+  }
+  .wish::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.4rem; bottom: 0.4rem;
+    width: 4px;
+    border-radius: 4px;
+    background: var(--c3);
+  }
+  .wish:nth-child(2)::before { background: var(--c1); }
+  .wish:nth-child(3)::before { background: var(--c2); }
+  .wish .tag {
+    display: block;
+    font-weight: 700;
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--sub);
+    margin-bottom: 0.2rem;
+  }
+  .patience {
+    margin-top: 1.5rem;
+    border: 2px dashed var(--c4);
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--text);
+    transform: rotate(-1deg);
+  }
+  .footer-line {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    color: var(--sub);
+    margin-top: 1.6rem;
+  }
+  .hearts {
+    font-size: 1.7rem;
+    margin-top: 0.5rem;
+  }
+  .game-title {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin: 2rem 0 0.6rem;
+    color: var(--text);
+  }
+  .game-hint {
+    font-size: 0.85rem;
+    color: var(--sub);
+    margin-bottom: 0.9rem;
+  }
+  .note-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+  }
+  .note {
+    font-size: 1.6rem;
+    background: var(--bg);
+    border: none;
+    border-radius: 12px;
+    padding: 0.8rem 0.4rem;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .note:active { transform: scale(0.9); }
+  .note.opened {
+    background: var(--c2);
+    pointer-events: none;
+    transform: scale(0.95);
+  }
+  .note-reveal {
+    display: none;
+    background: var(--bg);
+    border-radius: 14px;
+    padding: 0.9rem 1.1rem;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--t4);
+    margin-top: 0.6rem;
+    text-align: left;
+  }
+  .note-reveal.show { display: block; }
+
+  .spinner-wrap {
+    margin-top: 1.6rem;
+  }
+  .spin-btn {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    background: var(--t1);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.7rem 1.4rem;
+    cursor: pointer;
+  }
+  .spin-btn:active { transform: scale(0.95); }
+  .spin-result {
+    margin-top: 0.9rem;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--t3);
+    min-height: 1.8rem;
+  }
+  .spin-result.rolling {
+    animation: rollFade 0.25s ease;
+  }
+  @keyframes rollFade {
+    from { opacity: 0.2; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reactions {
+    display: flex;
+    justify-content: center;
+    gap: 0.7rem;
+    margin: 1.8rem 0 0.4rem;
+  }
+  .reaction-btn {
+    background: var(--bg);
+    border: none;
+    border-radius: 14px;
+    padding: 0.55rem 0.8rem;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    transition: transform 0.12s ease;
+  }
+  .reaction-btn:active { transform: scale(0.88); }
+  .reaction-count {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--sub);
+  }
+
+  .blast-btn {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    background: var(--t3);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    margin-top: 1.4rem;
+  }
+  .blast-btn:active { transform: scale(0.95); }
+  .burst-piece {
+    position: fixed;
+    font-size: 1.4rem;
+    pointer-events: none;
+    z-index: 5;
+    animation: burstFly 1s ease-out forwards;
+  }
+  @keyframes burstFly {
+    0% { transform: translate(0,0) scale(0.6); opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) scale(1.1); opacity: 0; }
+  }
+
+  .wish-board-title {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin: 2rem 0 0.5rem;
+    color: var(--text);
+  }
+  .wish-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .wish-input {
+    flex: 1;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: var(--bg);
+    color: var(--text);
+  }
+  .wish-submit {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    background: var(--t1);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0 1rem;
+    cursor: pointer;
+  }
+  .wish-board {
+    display: grid;
+    gap: 0.6rem;
+    text-align: left;
+  }
+  .wish-entry {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .wish-entry.dua {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Noto Naskh Arabic', 'Quicksand', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.95;
+    color: var(--t3);
+  }
+  .wish-empty {
+    font-size: 0.85rem;
+    color: var(--sub);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="blob" style="width:260px; height:260px; left:-60px; top:5%; background:var(--c1); animation: drift 9s ease-in-out infinite;"></div>
+  <div class="blob" style="width:220px; height:220px; right:-50px; top:40%; background:var(--c4); animation: drift 11s ease-in-out infinite;"></div>
+  <div class="blob" style="width:200px; height:200px; left:10%; bottom:-40px; background:var(--c3); animation: drift 8s ease-in-out infinite;"></div>
+
+  <div class="confetti-piece" style="left:8%; animation-duration:6s; animation-delay:0s;">🎉</div>
+  <div class="confetti-piece" style="left:26%; animation-duration:7s; animation-delay:1s;">🎈</div>
+  <div class="confetti-piece" style="left:44%; animation-duration:5.5s; animation-delay:2s;">🎂</div>
+  <div class="confetti-piece" style="left:62%; animation-duration:6.5s; animation-delay:0.5s;">✨</div>
+  <div class="confetti-piece" style="left:80%; animation-duration:7.5s; animation-delay:1.5s;">🎊</div>
+
+  <div class="card">
+    <div class="stamp" style="left:-14px; top:14%; transform:rotate(-8deg);">🎁</div>
+    <div class="stamp" style="right:-14px; top:20%; transform:rotate(9deg);">🥳</div>
+    <div class="stamp" style="left:-10px; bottom:16%; transform:rotate(6deg);">🎈</div>
+
+    <span class="handle">a note from a total stranger</span>
+    <h1>happy birthday to</h1>
+    <span class="username">
+      <span>u</span><span>n</span><span>.</span><span>h</span><span>i</span><span>n</span><span>g</span><span>e</span><span>d</span><span>_</span><span>0</span>
+    </span>
+    <p class="subtitle">hope today's a genuinely good one 🎉</p>
+
+    <div class="cake">🎂</div>
+
+    <p class="message">
+      You don't know us, and we don't really know you — but the internet's
+      a small place, and today felt like a good day to say
+      <strong>happy birthday</strong> anyway.
+    </p>
+
+    <h2 class="wishes-title">a few wishes, from nowhere in particular</h2>
+    <div class="wishes">
+      <div class="wish">
+        <span class="tag">for today</span>
+        Cake that actually tastes as good as it looks, and zero notifications
+        that ruin the mood.
+      </div>
+      <div class="wish">
+        <span class="tag">for this year</span>
+        Whatever chaos "un.hinged" stands for — may it be the fun kind,
+        not the stressful kind.
+      </div>
+      <div class="wish">
+        <span class="tag">from a stranger</span>
+        Hope the people around you make you feel as seen as this random
+        page is trying to right now.
+      </div>
+    </div>
+
+    <h2 class="game-title">📝 Pick a lucky note</h2>
+    <p class="game-hint">tap one to reveal a little note just for you</p>
+    <div class="note-grid" id="noteGrid"></div>
+    <div class="note-reveal" id="noteReveal"></div>
+
+    <div class="spinner-wrap">
+      <h2 class="game-title">🎡 Spin for a wish</h2>
+      <p class="game-hint">tap to get a random birthday blessing</p>
+      <button class="spin-btn" onclick="spinWish()">Spin 🎲</button>
+      <div class="spin-result" id="spinResult"></div>
+    </div>
+
+    <div class="reactions">
+      <button class="reaction-btn" onclick="react(this,'🎉')">🎉<span class="reaction-count">0</span></button>
+      <button class="reaction-btn" onclick="react(this,'❤️')">❤️<span class="reaction-count">0</span></button>
+      <button class="reaction-btn" onclick="react(this,'😂')">😂<span class="reaction-count">0</span></button>
+      <button class="reaction-btn" onclick="react(this,'🥳')">🥳<span class="reaction-count">0</span></button>
+    </div>
+
+    <button class="blast-btn" onclick="confettiBlast(event)">🎊 tap for a confetti blast</button>
+
+    <h2 class="wish-board-title">💬 leave a birthday note</h2>
+    <p class="game-hint">type anything — it turns into a dua for them 🤲</p>
+    <div class="wish-form">
+      <input class="wish-input" id="wishInput" type="text" placeholder="type a quick wish..." maxlength="80">
+      <button class="wish-submit" onclick="addWish()">send</button>
+    </div>
+    <div class="wish-board" id="wishBoard">
+      <p class="wish-empty" id="wishEmpty">no notes yet — be the first to leave one</p>
+    </div>
+
+    <p class="patience">
+      you'll get what you want — just have sabr for it ✨
+    </p>
+
+    <p class="footer-line">sent with zero context and full good vibes</p>
+    <div class="hearts">🎉🎂🎈✨🥳</div>
+  </div>
+  <script>
+    function react(btn, emoji) {
+      const countEl = btn.querySelector('.reaction-count');
+      countEl.textContent = parseInt(countEl.textContent, 10) + 1;
+      btn.style.transform = 'scale(1.2)';
+      setTimeout(() => { btn.style.transform = ''; }, 150);
+    }
+
+    function confettiBlast(e) {
+      const emojis = ['🎉','🎊','✨','🎈','🥳'];
+      const x = e.clientX || window.innerWidth / 2;
+      const y = e.clientY || window.innerHeight / 2;
+      for (let i = 0; i < 14; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'burst-piece';
+        piece.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 80 + Math.random() * 120;
+        piece.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+        piece.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+        piece.style.left = x + 'px';
+        piece.style.top = y + 'px';
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 1000);
+      }
+    }
+
+    function addWish() {
+      const input = document.getElementById('wishInput');
+      const text = input.value.trim();
+      if (!text) return;
+      const empty = document.getElementById('wishEmpty');
+      if (empty) empty.remove();
+      const board = document.getElementById('wishBoard');
+      const entry = document.createElement('div');
+      entry.className = 'wish-entry dua';
+      entry.textContent = duas[Math.floor(Math.random() * duas.length)];
+      board.prepend(entry);
+      input.value = '';
+    }
+    const duas = [
+      "اللهم بارك له في عمره، وارزقه الصحة والعافية، ووسع له في رزقه، وحقق له كل ما يتمناه من خير الدنيا والآخرة",
+      "اللهم اجعل هذا العام أفضل أعوامه، واملأه بالفرح والسكينة، وارزقه القبول في قلوب من حوله، ويسّر له كل أمر عسير",
+      "اللهم تقبل منه صالح الأعمال، وأصلح له شأنه كله، وأعطه من الخير أكثر مما يتمنى، ولا تحرمه أجرًا ولا خيرًا",
+      "اللهم اكتب له السعادة في دنياه وآخرته، وبارك له في أهله وماله وعمره، واجعل قلبه دائمًا مطمئنًا راضيًا",
+      "اللهم افتح له أبواب الرزق من حيث لا يحتسب، ويسّر له طريقه، وحقق له أحلامه، واجمعه بمن يحب في خير وسرور",
+      "اللهم احفظه من كل مكروه، واشرح له صدره، ويسّر له أمره، وارزقه القناعة والرضا، واجعل أيامه كلها خيرًا وبركة",
+      "اللهم بارك له في صحته وعافيته، واجعل عامه الجديد مليئًا بالإنجازات والفرح، وارزقه رفقة صالحة تسعده وتعينه",
+      "اللهم اجعل كل دعوة يدعو بها مستجابة، وكل خطوة يخطوها موفقة، وكل يوم يعيشه أجمل من الذي قبله"
+    ];
+
+    const notes = [
+      "you're allowed to eat cake for breakfast today 🍰",
+      "someone out there is genuinely glad you exist 🌟",
+      "may your wifi never lag on your special day 📶",
+      "hope today has zero awkward small talk 😌",
+      "you're older, wiser, and still un.hinged — perfect 🎯",
+      "here's to a year that surprises you in good ways 🎁"
+    ];
+    const noteGrid = document.getElementById('noteGrid');
+    const noteReveal = document.getElementById('noteReveal');
+    const shuffled = [...notes].sort(() => Math.random() - 0.5);
+    shuffled.forEach((text) => {
+      const btn = document.createElement('button');
+      btn.className = 'note';
+      btn.textContent = '📝';
+      btn.onclick = function () {
+        if (btn.classList.contains('opened')) return;
+        btn.classList.add('opened');
+        btn.textContent = '💌';
+        noteReveal.textContent = text;
+        noteReveal.classList.add('show');
+      };
+      noteGrid.appendChild(btn);
+    });
+
+    const wishes = [
+      "may today be low effort and high joy 🎈",
+      "sending extra cake energy your way 🍰",
+      "here's to a year less chaotic, twice as fun 🎉",
+      "hope the universe cuts you some slack today 🌙",
+      "may your birthday snacks be unlimited 🍕",
+      "wishing you exactly the kind of day you didn't expect 🎊"
+    ];
+    function spinWish() {
+      const result = document.getElementById('spinResult');
+      let count = 0;
+      const interval = setInterval(() => {
+        result.textContent = wishes[Math.floor(Math.random() * wishes.length)];
+        result.classList.remove('rolling');
+        void result.offsetWidth;
+        result.classList.add('rolling');
+        count++;
+        if (count > 8) {
+          clearInterval(interval);
+          result.textContent = wishes[Math.floor(Math.random() * wishes.length)];
+        }
+      }, 90);
+    }
+
+    function confettiBlastAt(x, y) {
+      const emojis = ['🎉','🎊','✨','🎈','🥳'];
+      for (let i = 0; i < 14; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'burst-piece';
+        piece.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 80 + Math.random() * 160;
+        piece.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+        piece.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+        piece.style.left = x + 'px';
+        piece.style.top = y + 'px';
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 1000);
+      }
+    }
+
+    window.addEventListener('load', () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      confettiBlastAt(w * 0.5, h * 0.35);
+      setTimeout(() => confettiBlastAt(w * 0.25, h * 0.5), 150);
+      setTimeout(() => confettiBlastAt(w * 0.75, h * 0.5), 300);
+    });
+  </script>
+</body>
+</html>
